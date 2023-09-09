@@ -16,23 +16,42 @@ import signal
 import sys
 from types import FrameType
 
-from flask import Flask
-
 from utils.logging import logger
+from flask import Flask, request, render_template
+import numpy as np
+import pandas as pd
+from sklearn import metrics 
+import warnings
+import pickle
+import os
+warnings.filterwarnings('ignore')
+from feature import FeatureExtraction
+
+file = open("phishing-url-analyzer/pickle/model.pkl","rb")
+gbc = pickle.load(file)
+file.close()
 
 app = Flask(__name__)
 
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
 
-@app.route("/")
-def hello() -> str:
-    # Use basic logging with custom fields
-    logger.info(logField="custom-entry", arbitraryField="custom-entry")
+        url = request.form["url"]
+        obj = FeatureExtraction(url)
+        x = np.array(obj.getFeaturesList()).reshape(1,30) 
 
-    # https://cloud.google.com/run/docs/logging#correlate-logs
-    logger.info("Child logger with trace Id.")
-
-    return "Hello, World!"
-
+        y_pred =gbc.predict(x)[0]
+        #1 is safe       
+        #-1 is unsafe
+        y_pro_phishing = gbc.predict_proba(x)[0,0]
+        y_pro_non_phishing = gbc.predict_proba(x)[0,1]
+        # if(y_pred ==1 ):
+        pred = "It is {0:.2f} % safe to go ".format(y_pro_phishing*100)
+        #return render_template('index.html',xx =round(y_pro_non_phishing,2),url=url )
+        return str(y_pred)
+    #return render_template("index.html", xx =-1)
+    return "none"
 
 def shutdown_handler(signal_int: int, frame: FrameType) -> None:
     logger.info(f"Caught Signal {signal.strsignal(signal_int)}")
