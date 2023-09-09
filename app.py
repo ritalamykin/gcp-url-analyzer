@@ -27,7 +27,7 @@ import os
 warnings.filterwarnings('ignore')
 from feature import FeatureExtraction
 
-file = open("phishing-url-analyzer/pickle/model.pkl","rb")
+file = open("pickle/model.pkl","rb")
 gbc = pickle.load(file)
 file.close()
 
