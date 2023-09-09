@@ -6,7 +6,7 @@ structlog==22.1.0
 
 google-auth==2.3.2
 
-beautifulsoup4==4.9.3
+#beautifulsoup4==4.9.3
 #Flask==2.0.2
 numpy==1.21
 googlesearch_python==1.0.1
