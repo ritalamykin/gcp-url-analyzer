@@ -38,8 +38,9 @@ RUN_CONCURRENTLY = False
 app = Flask(__name__)
 
 def predict(url):
+    if url == "":
+        return {url: str(1)}
     obj = FeatureExtraction(url)
-
     x = np.array(obj.getFeaturesList()).reshape(1,30) 
     y_pred = gbc.predict(x)[0]
     #1 is safe       

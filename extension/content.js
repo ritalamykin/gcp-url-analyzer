@@ -7,14 +7,16 @@ async function markLinks() {
       return a.href;
     });
   console.log("Sending request to server")
-  const response = await fetch(SERVER_URL, {
+  try { const response = await fetch(SERVER_URL, {
       method: "POST", 
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       redirect: "follow", // manual, *follow, error
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify({ "urls": linksStrings}), // body data type must match "Content-Type" header
     });
+  if (!response.ok) {console.log("Request failed");}
   var body = await response.json();
+  } catch(err) {console.log(err)}
   console.log(body)
   for (var i = 0; i < linksObjects.length; i++) {
     var link = linksObjects[i];
