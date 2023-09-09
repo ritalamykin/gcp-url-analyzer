@@ -7,42 +7,38 @@ async function markLinks() {
       return a.href;
     });
   console.log("Sending request to server")
-  try { const response = await fetch(SERVER_URL, {
+  const response = await fetch(SERVER_URL, {
       method: "POST", 
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       redirect: "follow", // manual, *follow, error
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify({ "urls": linksStrings}), // body data type must match "Content-Type" header
-    });
-  if (!response.ok) {console.log("Request failed");}
+  });
   var body = await response.json();
-  } catch(err) {console.log(err)}
   console.log(body)
-  if (body.ok) {
-    for (var i = 0; i < linksObjects.length; i++) {
-      var link = linksObjects[i];
-      if (linksStrings[i] in body){
-        // -1 refers to a malicous prediction
-        if (body[linksStrings[i]] == '-1'){
-          var emTag = createStyledEmElement(link.textContent);
-          emTag.addEventListener('click', function (event) {
-            if (!isPopupDisplayed) {
-              // Create a pop-up (an alert) with options to proceed or cancel
-              event.preventDefault(); // Prevent the default link behavior
-              var confirmation = confirm('This is potentially malicious. Click OK to proceed to the link or Cancel to stay on this page.');
-              if (confirmation) {
-                // User clicked OK, allow the link to be followed
-                isPopupDisplayed = false;
-                window.location.href = link.href;
-              } else {
-                // User clicked Cancel, do not follow the link
-                isPopupDisplayed = false;
-              }
+  for (var i = 0; i < linksObjects.length; i++) {
+    var link = linksObjects[i];
+    if (linksStrings[i] in body){
+      // -1 refers to a malicous prediction
+      if (body[linksStrings[i]] == '-1'){
+        var emTag = createStyledEmElement(link.textContent);
+        emTag.addEventListener('click', function (event) {
+          if (!isPopupDisplayed) {
+            // Create a pop-up (an alert) with options to proceed or cancel
+            event.preventDefault(); // Prevent the default link behavior
+            var confirmation = confirm('This is potentially malicious. Click OK to proceed to the link or Cancel to stay on this page.');
+            if (confirmation) {
+              // User clicked OK, allow the link to be followed
+              isPopupDisplayed = false;
+              window.location.href = link.href;
+            } else {
+              // User clicked Cancel, do not follow the link
+              isPopupDisplayed = false;
             }
-          });
-          link.innerHTML = '';
-          link.appendChild(emTag);
-        }
+          }
+        });
+        link.innerHTML = '';
+        link.appendChild(emTag);
       }
     }
   }
