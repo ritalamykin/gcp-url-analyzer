@@ -38,7 +38,7 @@ RUN_CONCURRENTLY = False
 app = Flask(__name__)
 
 def predict(url):
-    if url == "":
+    if url == "" or url.find("javascript:void(0)"):
         return {url: str(1)}
     obj = FeatureExtraction(url)
     x = np.array(obj.getFeaturesList()).reshape(1,30) 
