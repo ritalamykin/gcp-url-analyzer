@@ -33,7 +33,7 @@ gbc = pickle.load(file)
 file.close()
 
 THREAD_NUMBER = 10
-RUN_CONCURRENTLY = True
+RUN_CONCURRENTLY = False
 
 app = Flask(__name__)
 
@@ -67,6 +67,7 @@ def index():
 
         response = jsonify(url_to_prediction)
         response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Credentials','true')
         return response
     return "Bad Request", 400
 
