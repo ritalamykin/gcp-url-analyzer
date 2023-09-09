@@ -19,7 +19,8 @@ async function markLinks() {
   for (var i = 0; i < linksObjects.length; i++) {
     var link = linksObjects[i];
     if (linksStrings[i] in body){
-      if (body[linksStrings[i]] == '1'){
+      // -1 refers to a malicous prediction
+      if (body[linksStrings[i]] == '-1'){
         var emTag = createStyledEmElement(link.textContent);
         emTag.addEventListener('click', function (event) {
           if (!isPopupDisplayed) {
