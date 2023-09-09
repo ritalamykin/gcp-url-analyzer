@@ -16,6 +16,7 @@ async function markLinks() {
   });
   var body = await response.json();
   console.log(body)
+  
   for (var i = 0; i < linksObjects.length; i++) {
     var link = linksObjects[i];
     if (linksStrings[i] in body){

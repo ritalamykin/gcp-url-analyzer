@@ -41,7 +41,7 @@ class FeatureExtraction:
             pass
 
         
-
+        ## Setting dummies for unimportant features.
         self.features.append(self.UsingIp())
         self.features.append(self.longUrl())
         self.features.append(self.shortUrl())
@@ -71,7 +71,6 @@ class FeatureExtraction:
         self.features.append(-1)
         self.features.append(self.DNSRecording())
         self.features.append(self.WebsiteTraffic())
-        #Setting page rank dummy -
         self.features.append(-1)
         self.features.append(self.GoogleIndex())
         self.features.append(self.LinksPointingToPage())
