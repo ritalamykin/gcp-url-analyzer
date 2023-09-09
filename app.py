@@ -33,7 +33,7 @@ gbc = pickle.load(file)
 file.close()
 
 THREAD_NUMBER = 10
-RUN_CONCURRENTLY = True
+RUN_CONCURRENTLY = False
 
 app = Flask(__name__)
 
@@ -57,7 +57,7 @@ def index():
 
         # Using multi-thread
         if RUN_CONCURRENTLY:
-            thread_pool = Pool(processes=THREAD_NUMBER)
+            thread_pool = Pool()
             result_as_list = thread_pool.map(predict, urls)
             url_to_prediction =  dict((key,d[key]) for d in result_as_list for key in d)
         # Using serial calls

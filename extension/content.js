@@ -1,3 +1,4 @@
+chrome.action.setIcon("Stop_sign.png")
 const SERVER_URL = "https://gcp-url-analyzer-qh7fkw5ema-ew.a.run.app";
 var isPopupDisplayed = false; // Variable to track pop-up display status
 
