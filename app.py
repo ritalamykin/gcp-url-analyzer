@@ -67,6 +67,7 @@ def index():
 
         response = jsonify(url_to_prediction)
         response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Credentials','true')
         return response
     return "Bad Request", 400
 
