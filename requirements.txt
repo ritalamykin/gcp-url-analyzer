@@ -20,4 +20,3 @@ urllib3
 python-dateutil
 regex
 pandas
-scikit_learn
