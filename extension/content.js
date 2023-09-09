@@ -17,16 +17,16 @@ async function markLinks() {
     console.log(links);
     for (var i = 0; i < links.length; i++) {
       var link = links[i];
-      console.log(link.innerHTML.String)
-      
-      if (link.innerHTML in body){
-        console.log("try2")
-        if (body[link.innerHTML] == '1'){
-          console.log(link.innerHTML);
-          console.log("try3")
+      if (link in body){
+        if (body[link] == '1'){
           var emTag = document.createElement('em');
           emTag.innerHTML = link.innerHTML;
           emTag.style.backgroundColor = '#ffc6b3';
+          link.appendChild(emTag);
+        } else {
+          var emTag = document.createElement('em');
+          emTag.innerHTML = link.innerHTML;
+          emTag.style.backgroundColor = '#b3e6b3';
           link.appendChild(emTag);
         }
       }
