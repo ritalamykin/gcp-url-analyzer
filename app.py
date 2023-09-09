@@ -33,7 +33,7 @@ gbc = pickle.load(file)
 file.close()
 
 THREAD_NUMBER = 10
-RUN_CONCURRENTLY = False
+RUN_CONCURRENTLY = True
 
 app = Flask(__name__)
 

@@ -72,7 +72,7 @@ class FeatureExtraction:
         self.features.append(self.DNSRecording())
         self.features.append(self.WebsiteTraffic())
         # Set PR feature to dummy: -1:
-        self.features.append(-1)
+        self.features.append(1)
         self.features.append(self.GoogleIndex())
         self.features.append(self.LinksPointingToPage())
         self.features.append(self.StatsReport())
