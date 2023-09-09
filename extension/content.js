@@ -7,7 +7,6 @@ async function markLinks() {
     // var linksDict = new Object(); 
     const response = await fetch(SERVER_URL, {
         method: "POST", 
-        mode: 'no-cors',
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -15,14 +14,20 @@ async function markLinks() {
       });
     var body = await response.json();
     console.log(body);
+    console.log(links);
     for (var i = 0; i < links.length; i++) {
       var link = links[i];
+      console.log(link.innerHTML.String)
+      
       if (link.innerHTML in body){
+        console.log("try2")
         if (body[link.innerHTML] == '1'){
+          console.log(link.innerHTML);
+          console.log("try3")
           var emTag = document.createElement('em');
           emTag.innerHTML = link.innerHTML;
           emTag.style.backgroundColor = '#ffc6b3';
-          link.appendChild(emTag)
+          link.appendChild(emTag);
         }
       }
     }
