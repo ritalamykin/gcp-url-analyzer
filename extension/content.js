@@ -6,6 +6,7 @@ async function markLinks() {
   var linksStrings = [].slice.call(linksObjects).map(function (a) {
       return a.href;
     });
+  console.log("Sending request to server")
   const response = await fetch(SERVER_URL, {
       method: "POST", 
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -60,14 +61,6 @@ function applyStyles(element) {
   element.style.boxShadow = '2px 2px 5px rgba(0, 0, 0, 0.2)';
   element.style.cursor = 'pointer';
 }
-
-
-
-//       link.innerHTML = '';
-//       link.appendChild(emTag);
-//     }
-//   }
-// }
 
 // Run the function when the page finishes loading
 window.addEventListener('load', markLinks);
