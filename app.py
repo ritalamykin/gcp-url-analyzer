@@ -15,7 +15,7 @@
 import signal
 import sys
 from types import FrameType
-from multiprocessing import Pool
+from multiprocess import Pool
 
 from utils.logging import logger
 from flask import Flask, request, jsonify

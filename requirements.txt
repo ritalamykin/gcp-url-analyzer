@@ -19,4 +19,4 @@ bs4
 urllib3
 python-dateutil
 regex
-multiprocessing
+multiprocess
