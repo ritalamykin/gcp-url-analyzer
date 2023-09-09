@@ -2,11 +2,25 @@
   "manifest_version": 3,
   "name": "URL Advisor",
   "version": "1.0",
-  "description": "Scrapes web pages, detects hyperlinks, classifies malicious urls and colors them in red.",
-  "permissions": ["activeTab", "notifications"],
+  "description": "Scrapes web pages, detects hyperlinks, classifies malicious URLs, and colors them in red.",
+  
+  "action": {
+    "default_icon": {
+      "16": "Stop_sign.png"
+    },
+    "default_popup": "popup.html" 
+  },
+  
+  "permissions": [
+    "activeTab",
+    "notifications",
+    "tabs"
+    ],
+
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"]
-    }]
+    }
+  ]
 }

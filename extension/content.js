@@ -35,24 +35,61 @@ async function markLinks() {
 // // Run the function when the page finishes loading
 window.addEventListener('load', markLinks);
 
+//RITAS CODE
 
-//     // var link = links[i];
-    //     // var emTag = document.createElement('em');
-    //     // emTag.innerHTML = link.innerHTML;
-    //     // // if (link.innerHTML == 'https://www.sdtek.net/malicious-urls-and-how-to-fight-them'){
-    //     // //     emTag.style.backgroundColor = '#ffc6b3'
-    //     // // }
-    //     // if (link.innerHTML.length%11 == 0) {
-    //     //     emTag.style.backgroundColor = '#ffc6b3';
-    //     // } 
-    //     // // else {
-    //     // //     emTag.style.backgroundColor = '#b3e6b3'
-    //     // // }
-    //     // link.innerHTML = '';
-    //     // link.appendChild(emTag);
-    //     var link = links[i].innerHTML;
-    //     fetch("http://127.0.0.1:3000?url=" + link)
-    //     .then(res => {
-    //         console.log(link + ":" + res);
-    //     })
-    // }
+
+// var isPopupDisplayed = false; // Variable to track pop-up display status
+
+// function createStyledEmElement(text) {
+//   var emTag = document.createElement('em');
+//   emTag.textContent = text;
+//   applyStyles(emTag);
+//   return emTag;
+// }
+
+// function applyStyles(element) {
+//   element.style.border = '2px solid red';
+//   element.style.padding = '2px 6px';
+//   element.style.backgroundColor = '#ffc6b3';
+//   element.style.color = 'red';
+//   element.style.borderRadius = '5px';
+//   element.style.fontFamily = 'Arial, sans-serif';
+//   element.style.fontWeight = 'bold';
+//   element.style.boxShadow = '2px 2px 5px rgba(0, 0, 0, 0.2)';
+//   element.style.cursor = 'pointer';
+// }
+
+// function markLinks() {
+//   var links = document.getElementsByTagName('a');
+
+//   for (var i = 0; i < links.length; i++) {
+//     var link = links[i];
+
+//     if (link.textContent.length % 11 === 0) {
+//       var emTag = createStyledEmElement(link.textContent);
+
+//       emTag.addEventListener('click', function (event) {
+//         if (!isPopupDisplayed) {
+//           // Create a pop-up (an alert) with options to proceed or cancel
+//           event.preventDefault(); // Prevent the default link behavior
+//           var confirmation = confirm('This is potentially malicious. Click OK to proceed to the link or Cancel to stay on this page.');
+//           if (confirmation) {
+//             // User clicked OK, allow the link to be followed
+//             isPopupDisplayed = false;
+//             window.location.href = link.href;
+//           } else {
+//             // User clicked Cancel, do not follow the link
+//             isPopupDisplayed = false;
+//           }
+//         }
+//       });
+
+//       link.innerHTML = '';
+//       link.appendChild(emTag);
+//     }
+//   }
+// }
+
+// // Run the function when the page finishes loading
+// window.addEventListener('load', markLinks);
+
