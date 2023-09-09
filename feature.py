@@ -10,11 +10,6 @@ from datetime import date, datetime
 import time
 from dateutil.parser import parse as date_parse
 from urllib.parse import urlparse
-import google.cloud.logging
-import logging
-
-client = google.cloud.logging.Client()
-client.setup_logging()
 
 
 class FeatureExtraction:
@@ -28,7 +23,6 @@ class FeatureExtraction:
         self.response = ""
         self.soup = ""
 
-        start_time = time.time()
         try:
             self.response = requests.get(url)
             self.soup = BeautifulSoup(response.text, 'html.parser')
@@ -46,8 +40,6 @@ class FeatureExtraction:
         except:
             pass
 
-        end_time = time.time()
-        logging.warning("First try catch time: ", end_time - start_time)     
         
 
         self.features.append(self.UsingIp())
