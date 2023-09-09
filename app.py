@@ -15,9 +15,10 @@
 import signal
 import sys
 from types import FrameType
+from multiprocessing import Pool
 
 from utils.logging import logger
-from flask import Flask, request, render_template
+from flask import Flask, request, jsonify
 import numpy as np
 import pandas as pd
 from sklearn import metrics 
@@ -31,28 +32,43 @@ file = open("pickle/model.pkl","rb")
 gbc = pickle.load(file)
 file.close()
 
+THREAD_NUMBER = 10
+RUN_CONCURRENTLY = True
+
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+def predict(url):
+    obj = FeatureExtraction(url)
+
+    x = np.array(obj.getFeaturesList()).reshape(1,30) 
+    y_pred = gbc.predict(x)[0]
+    #1 is safe       
+    #-1 is unsafe
+    return {url: str(y_pred)}
+
+
+@app.route("/", methods=["POST"])
 def index():
     if request.method == "POST":
+        data = request.get_json(force=True)
+        urls = data['urls']
+        urls = list(set(urls))
+        url_to_prediction = {}
 
-        # url = request.form["url"]
-        # obj = FeatureExtraction(url)
-        # x = np.array(obj.getFeaturesList()).reshape(1,30) 
+        # Using multi-thread
+        if RUN_CONCURRENTLY:
+            thread_pool = Pool(processes=THREAD_NUMBER)
+            result_as_list = thread_pool.map(predict, urls)
+            url_to_prediction =  dict((key,d[key]) for d in result_as_list for key in d)
+        # Using serial calls
+        else:
+            for url in urls:
+                url_to_prediction.update(predict(url))
 
-        # y_pred =gbc.predict(x)[0]
-        # #1 is safe       
-        # #-1 is unsafe
-        # y_pro_phishing = gbc.predict_proba(x)[0,0]
-        # y_pro_non_phishing = gbc.predict_proba(x)[0,1]
-        # # if(y_pred ==1 ):
-        # pred = "It is {0:.2f} % safe to go ".format(y_pro_phishing*100)
-        # #return render_template('index.html',xx =round(y_pro_non_phishing,2),url=url )
-        # return str(y_pred)
-        return "hello"
-    #return render_template("index.html", xx =-1)
-    return "none"
+        response = jsonify(url_to_prediction)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    return "Bad Request", 400
 
 def shutdown_handler(signal_int: int, frame: FrameType) -> None:
     logger.info(f"Caught Signal {signal.strsignal(signal_int)}")
