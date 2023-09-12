@@ -6,7 +6,7 @@ async function markLinks() {
   var linksStrings = [].slice.call(linksObjects).map(function (a) {
       return a.href;
     });
-  console.log("Sending request to server")
+  console.log("URLAdvisor: Sent request to server")
   const response = await fetch(SERVER_URL, {
       method: "POST", 
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -15,8 +15,8 @@ async function markLinks() {
       body: JSON.stringify({ "urls": linksStrings}), // body data type must match "Content-Type" header
   });
   var body = await response.json();
-  console.log(body)
-  
+  console.log("URLAdvisor: Recieved response from server")
+
   for (var i = 0; i < linksObjects.length; i++) {
     var link = linksObjects[i];
     if (linksStrings[i] in body){
