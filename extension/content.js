@@ -21,7 +21,7 @@ async function markLinks() {
   for (var i = 0; i < linksObjects.length; i++) {
     var link = linksObjects[i];
     if (linksStrings[i] in body) {
-      if (body[linksStrings[i]] == '1') {
+      if (body[linksStrings[i]] == '-1') {
         var emTag = createStyledEmElement(link.textContent, link.href);
         emTag.addEventListener('click', function (event) {
           if (!isPopupDisplayed) {
