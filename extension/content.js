@@ -5,9 +5,15 @@ var isFirstPopupConfirmed = false; // Variable to track the first popup confirma
 async function markLinks() {
   var linksObjects = document.getElementsByTagName('a');
   var linksStrings = [].slice.call(linksObjects).map(function (a) {
+<<<<<<< HEAD
     return a.href;
   });
   console.log("Sending request to server");
+=======
+      return a.href;
+    });
+  console.log("URLAdvisor: Sent request to server")
+>>>>>>> fb3d0f6c3a1190e4c97cd9c8b239f26a50dc57bb
   const response = await fetch(SERVER_URL, {
     method: "POST",
     cache: "no-cache",
@@ -16,7 +22,12 @@ async function markLinks() {
     body: JSON.stringify({ "urls": linksStrings }),
   });
   var body = await response.json();
+<<<<<<< HEAD
   console.log(body);
+=======
+  console.log("URLAdvisor: Recieved response from server")
+
+>>>>>>> fb3d0f6c3a1190e4c97cd9c8b239f26a50dc57bb
   for (var i = 0; i < linksObjects.length; i++) {
     var link = linksObjects[i];
     if (linksStrings[i] in body) {
