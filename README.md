@@ -9,7 +9,7 @@ A chrome extension to detect potentially malicous URLs and alert the user of suc
 ```bash
 git clone https://github.com/ritalamykin/gcp-url-analyzer.git <target path>
 ```
-* Setup gcp-url-analyzer/extension directory as a new extension in chrome
+* Setup gcp-url-analyzer/extension directory as a [new extension in chrome](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) 
 
 ## Features
 
