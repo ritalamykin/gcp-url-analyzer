@@ -54,7 +54,6 @@ function applyStyles(element) {
 
 window.addEventListener('click', function (event) {
   if (!isPopupDisplayed && event.target.tagName === 'EM') {
-    console.log("URLAdvisor: inside!!");
     event.stopImmediatePropagation()
     event.preventDefault();
     var confirmation = confirm('This is potentially malicious. Click OK to proceed to the link or Cancel to stay on this page.');
