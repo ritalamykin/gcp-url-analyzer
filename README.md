@@ -1,6 +1,6 @@
 # URL Advisor Documentation
 
-A chrome extension to detect potentially malicous URLs and alert the user of such URL,
+A chrome extension to detect potentially malicous URLs and alert the user of such URL.
 
 ## Prerequisite
 
